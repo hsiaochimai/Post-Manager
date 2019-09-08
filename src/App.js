@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import UserList from './UserList'
+import { conditionalExpression } from '@babel/types';
 
 
 class App extends Component{
 constructor(){
   super()
   this.state=
-  {users: [],
-  posts:[]}
+  {users: []}
 }
 getUsers(){
   fetch('https://jsonplaceholder.typicode.com/users')
@@ -25,9 +25,9 @@ getPosts(){
     this.setState({posts:resJson}, ()=>{})
   })
 }
+
 componentWillMount(){
   this.getUsers()
-  this.getPosts()
   }
   render(){
    const {users, posts}= this.state
@@ -36,7 +36,8 @@ componentWillMount(){
         <header className="App-header">
          <h2>Post Manager</h2>
          <UserList users={users}
-          posts={posts}/>
+          posts={posts}
+          />
         </header>
       </div>
     );
