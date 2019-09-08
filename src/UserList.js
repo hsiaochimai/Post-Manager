@@ -9,21 +9,16 @@ class UserList extends Component{
         }
     }
     getSelectedPosts(id){
-        console.log(id)
         fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
         .then(res=>res.json())
         .then(resJson=>{
-            console.log(resJson)
             this.setState({selectedUserPosts:resJson})
         })
 this.setState({selectedId:id})
     }
     deletePost(id){
-          console.log(`delete post was clicked`, id)
   const stateCopy={...this.state}
-  console.log(stateCopy)
 const newPosts= stateCopy.selectedUserPosts.filter(post=>post.id!==id)
-console.log(newPosts)
 this.setState({selectedUserPosts:newPosts})
   
     }
@@ -48,12 +43,5 @@ this.setState({selectedUserPosts:newPosts})
     }
 
 }
-// class UserList extends Component{
-//     componentWillReceiveProps(){
-//         console.log(this.props)
-//     }
-//     render(){
-//         return(<div>hi</div>)
-//     }
-// }
+
 export default UserList
