@@ -1,26 +1,47 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import UserList from './UserList'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component{
+constructor(){
+  super()
+  this.state=
+  {users: [],
+  posts:[]}
+}
+getUsers(){
+  fetch('https://jsonplaceholder.typicode.com/users')
+  .then(res=>res.json())
+  .then(resJson=>{
+    this.setState({users:resJson}, ()=>{})
+  })
+}
+getPosts(){
+  fetch('https://jsonplaceholder.typicode.com/posts')
+  .then(res=>res.json())
+  .then(resJson=>{
+    this.setState({posts:resJson}, ()=>{})
+  })
+}
+componentWillMount(){
+  this.getUsers()
+  this.getPosts()
+  }
+  render(){
+   const {users, posts}= this.state
+    return (
+      <div className="App">
+        <header className="App-header">
+         <h2>Post Manager</h2>
+         <UserList users={users}
+          posts={posts}/>
+        </header>
+      </div>
+    );
+  }
+  
 }
 
 export default App;
